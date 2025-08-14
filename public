@@ -1,1 +1,142 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🤖 Smart Assistant</h1>
+        <p>Seu assistente pessoal inteligente</p>
+    </header>
+
+    <main>
+        <button id="recordBtn">🎤 Gravar Tarefa</button>
+        <ul id="taskList"></ul>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+let mediaRecorder;
+let audioChunks = [];
+
+document.getElementById("recordBtn").addEventListener("click", async () => {
+    if (!mediaRecorder || mediaRecorder.state === "inactive") {
+        startRecording();
+    } else {
+        stopRecording();
+    }
+});
+
+async function startRecording() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+        audioChunks = [];
+
+        mediaRecorder.addEventListener("dataavailable", event => {
+            audioChunks.push(event.data);
+        });
+
+        mediaRecorder.addEventListener("stop", () => {
+            const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+            sendAudio(audioBlob);
+        });
+
+        document.getElementById("recordBtn").textContent = "⏹ Parar Gravação";
+    } catch (err) {
+        alert("Erro ao acessar o microfone: " + err.message);
+    }
+}
+
+function stopRecording() {
+    mediaRecorder.stop();
+    document.getElementById("recordBtn").textContent = "🎤 Gravar Tarefa";
+}
+
+async function sendAudio(audioBlob) {
+    const formData = new FormData();
+    formData.append("audio", audioBlob, "gravacao.webm");
+
+    try {
+        const response = await fetch("/process-audio", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+        displayTasks(data.tasks);
+        speakTasks(data.tasks);
+    } catch (error) {
+        alert("Erro ao enviar áudio: " + error.message);
+    }
+}
+
+function displayTasks(tasks) {
+    const list = document.getElementById("taskList");
+    list.innerHTML = "";
+    tasks.forEach(task => {
+        const li = document.createElement("li");
+        li.textContent = task;
+        list.appendChild(li);
+    });
+}
+
+function speakTasks(tasks) {
+    const utterance = new SpeechSynthesisUtterance("Suas tarefas são: " + tasks.join(", "));
+    utterance.lang = "pt-BR";
+    speechSynthesis.speak(utterance);
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    background: linear-gradient(135deg, #e0f7fa, #fff);
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, #4CAF50, #66bb6a);
+    color: white;
+    padding: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 50px;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #45a049;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: white;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 80%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
