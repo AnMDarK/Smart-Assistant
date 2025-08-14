@@ -1,4 +1,22 @@
-import express from "express";
+const express = require('express');
+const path = require('path');
+const app = express();
+
+// Porta definida pelo Render ou 3000 para local
+const PORT = process.env.PORT || 3000;
+
+// Servir arquivos estáticos (HTML, CSS, JS) da pasta atual
+app.use(express.static(path.join(__dirname)));
+
+// Rota principal -> index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Iniciar servidor
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});import express from "express";
 import multer from "multer";
 import fs from "fs";
 import path from "path";
