@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Assistente - Protótipo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Assistente Pessoal</h1>
+      <p class="sub">Minimalista • Inteligente • Compartilhável</p>
+    </header>
+
+    <main>
+      <section class="recorder">
+        <div class="mic-card">
+          <button id="recordBtn" class="big-btn">🎤 Gravar</button>
+          <div id="status">Pronto para gravar</div>
+          <div class="waves"></div>
+        </div>
+      </section>
+
+      <section class="lists">
+        <h2>Minhas Listas</h2>
+        <div id="listsContainer"></div>
+      </section>
+
+      <section class="response">
+        <h2>Resposta da Assistente (JSON)</h2>
+        <pre id="jsonOutput">{ "mensagem_ao_usuario": "Nenhuma interação ainda." }</pre>
+      </section>
+    </main>
+
+    <footer>
+      <small>Protótipo local — substitua o backend por OpenAI + Firebase para funcionalidade completa.</small>
+    </footer>
+  </div>
+
+<script src="app.js"></script>
+</body>
+</html>
