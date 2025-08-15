@@ -1,23 +1,28 @@
-require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
 
 const app = express();
-const upload = multer({ dest: 'uploads/' });
+const PORT = process.env.PORT || 10000;
 
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// Middleware
+app.use(cors());
+app.use(express.json());
 
-// Endpoint para receber áudio (simulação por enquanto)
-app.post('/api/audio', upload.single('audio'), (req, res) => {
-    console.log("Áudio recebido:", req.file);
-    res.json({ message: "Áudio processado com sucesso (simulação)" });
+// Servir arquivos estáticos da pasta "public"
+app.use(express.static(path.join(__dirname, "public")));
+
+// Rota principal
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-const PORT = process.env.PORT || 3000;
+// Exemplo de API
+app.get("/api/teste", (req, res) => {
+  res.json({ mensagem: "API funcionando no Render!" });
+});
+
+// Inicializar servidor
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
