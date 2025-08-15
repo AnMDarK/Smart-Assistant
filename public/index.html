@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Assistant</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Assistant</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Smart Assistant</h1>
-        <p>Seu assistente pessoal inteligente</p>
-        
-        <button id="record-btn">
-            🎙️ Gravar Tarefa
-        </button>
+  <main class="card">
+    <h1>Smart Assistant</h1>
+    <p class="subtitle">Seu assistente pessoal inteligente</p>
 
-        <div id="status"></div>
-        <ul id="task-list"></ul>
-    </div>
-    <script src="script.js"></script>
+    <button id="recordBtn" class="btn">
+      🎤 Gravar Tarefa
+    </button>
+    <p id="status" class="muted">Pronto para gravar</p>
+
+    <section id="tasks"></section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
