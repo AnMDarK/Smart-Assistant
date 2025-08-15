@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 300px;
+}
+
+h1 {
+    color: #2e7d6b;
+}
+
+#record-btn {
+    background-color: #4CAF50; /* Verde esmeralda */
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#record-btn:hover {
+    transform: scale(1.05);
+}
+
+#status {
+    margin-top: 15px;
+    color: gray;
+    font-size: 14px;
+}
+
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#task-list li {
+    background: #e8f5e9;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+}
