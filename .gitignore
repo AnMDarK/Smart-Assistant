@@ -1,0 +1,24 @@
+# Ignorar node_modules (instalado automaticamente no servidor)
+node_modules/
+
+# Ignorar arquivos de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar configurações locais do sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar variáveis de ambiente
+.env
+
+# Ignorar pastas de uploads locais
+uploads/
+
+# Ignorar arquivos temporários
+*.tmp
+*.temp
+
+# Ignorar cache
+.cache/
